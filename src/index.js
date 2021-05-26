@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/js/bootstrap.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'toastr/build/toastr.min.css';
+import 'font-awesome/css/font-awesome.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import "react-popupbox/dist/react-popupbox.css"
+import "react-notification-alert/dist/animate.css";
 
 ReactDOM.render(
   <React.StrictMode>
