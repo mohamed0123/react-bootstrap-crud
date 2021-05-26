@@ -11,7 +11,7 @@ import { PopupboxManager, PopupboxContainer } from "react-popupbox";
 import NotificationAlert from "react-notification-alert";
 import { Form, Button } from "react-bootstrap";
 
-const FirstComp = () => {
+const FirstComp = (props) => {
   let options = {};
   const notificationAlert = useRef("");
 

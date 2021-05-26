@@ -2,15 +2,16 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import BootstrapTable from "react-bootstrap-table-next";
 import { productsGenerator } from "../../utils/common";
+import styles from "./HTMLHandlingFeatures.module.css";
 import overlayFactory from "react-bootstrap-table2-overlay";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { PopupboxManager, PopupboxContainer } from "react-popupbox";
 import NotificationAlert from "react-notification-alert";
-import { Form, Button ,Nav, Navbar ,FormControl} from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
-const HTMLHandlingFeatures = () => {
+const HTMLHandlingFeatures = (props) => {
   let options = {};
   const notificationAlert = useRef("");
 
@@ -62,22 +63,6 @@ const HTMLHandlingFeatures = () => {
     },
   };
 
-  const MyNavBar = () => {
-    return (
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-        </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
-        </Form>
-      </Navbar>
-    );
-  };
   const ADDEDITFORM = () => {
     const handleClick = (event) => {
       event.preventDefault();
@@ -293,7 +278,7 @@ const HTMLHandlingFeatures = () => {
   });
 
   return (
-    <div>
+    <div className={styles.HTMLHandlingFeatures}>
       
       <div className="App">
         <h5>React Bootstrap Table Next with Sorting, Pagination and Search</h5>
