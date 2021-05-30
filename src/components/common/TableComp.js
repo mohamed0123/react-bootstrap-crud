@@ -7,7 +7,7 @@ import filterFactory from "react-bootstrap-table2-filter";
 import { PopupboxManager, PopupboxContainer } from "react-popupbox";
 import NotificationAlert from "react-notification-alert";
 
-const TableComp = ({products , columns , defaultSorted , ADDEDITFORM}) => {
+const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeader}) => {
   let options = {};
   const notificationAlert = useRef("");
 
@@ -205,7 +205,7 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM}) => {
     <div>
       
       <div className="App">
-        <h5>React Bootstrap Table Next with Sorting, Pagination and Search</h5>
+        <h5>{compHeader}</h5>
 
         <ToolkitProvider
           bootstrap4

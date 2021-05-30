@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import TableComp from "./../common/TableComp";
 import styles from "./HTMLHandlingFeatures.module.css";
-import { Form, Button } from "react-bootstrap";
+import HTMLHandlingFeaturesAddOrEdit from './HTMLHandlingFeaturesAddOrEdit'
 import  { textFilter } from "react-bootstrap-table2-filter";
 const HTMLHandlingFeatures = (props) => {
-  const [currentRow, setCurrentRow] = useState({});
   const products = [
     { id: 1, name: "George", animal: "Monkey" },
     { id: 2, name: "Jeffrey", animal: "Giraffe" },
@@ -35,57 +34,19 @@ const HTMLHandlingFeatures = (props) => {
     },
   ];
 
-
-  const ADDEDITFORM = () => {
-    const handleClick = (event) => {
-      event.preventDefault();
-      debugger;
-      console.log(currentRow);
-      console.log(event.target.email.value);
-    };
-    return (
-      <div>
-        <Form onSubmit={handleClick}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={currentRow.name}
-              name="name"
-              placeholder="Enter email"
-            />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Animal</Form.Label>
-            <Form.Control
-              type="text"
-              value={currentRow.animal}
-              name="animal"
-              placeholder="Password"
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </div>
-    );
-  };
+  const ADDEDITFORM = ()=>{
+    return (<HTMLHandlingFeaturesAddOrEdit></HTMLHandlingFeaturesAddOrEdit>);
+  }
 
   return (
     <div className={styles.HTMLHandlingFeatures}>
       <TableComp
+        compHeader="Handling Screen"
         products={products}
         columns={columns}
         defaultSorted={defaultSorted}
         ADDEDITFORM={ADDEDITFORM}
+
       ></TableComp>
     </div>
   );

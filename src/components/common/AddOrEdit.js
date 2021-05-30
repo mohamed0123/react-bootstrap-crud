@@ -1,30 +1,47 @@
-import FieldInput from "FieldInput";
-import SelectInput from "SelectInput";
+import FieldInput from "./FieldInput";
+import SelectInput from "./SelectInput";
 import { Field, reduxForm } from "redux-form";
 
-export default AddOrEdit = ({handleSubmit,pristine,inputFields,reset,submitting,handleSave,handleCancel}) => {
+const AddOrEdit = ({
+  handleSubmit,
+  heading,
+  pristine,
+  inputFields,
+  reset,
+  submitting,
+  handleSave,
+  handleCancel,
+}) => {
+  const meta = { touched: false, error: {}, warning: {} };
+  const input = {};
   return (
     <form onSubmit={handleSubmit(handleSave)}>
       <h1>{heading}</h1>
       {inputFields.map(function (inputField, i) {
         if (inputField.type === "text") {
           return (
-            <Field
+            <FieldInput
+              input={input}
+              meta={meta}
+              key={i}
               type="text"
               name={inputField.name}
               label={inputField.label}
               placeholder={inputField.placeholder}
-              component={FieldInput}
+              //   component={FieldInput}
             />
           );
         }
         if (inputField.type === "select") {
           return (
-            <Field
+            <SelectInput
+              input={input}
+              meta={meta}
+              key={i}
               name={inputField.name}
               label={inputField.label}
               options={inputField.options}
-              component={SelectInput}
+              //   component={SelectInput}
             />
           );
         }
@@ -57,3 +74,5 @@ export default AddOrEdit = ({handleSubmit,pristine,inputFields,reset,submitting,
     </form>
   );
 };
+
+export default AddOrEdit;

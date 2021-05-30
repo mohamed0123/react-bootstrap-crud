@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
 const FieldInput = ({
   input,
@@ -30,29 +31,12 @@ const FieldInput = ({
 };
 
 FieldInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  region: PropTypes.string.isRequired,
-  central: PropTypes.string.isRequired,
-  code: PropTypes.string.isRequired,
-  passiveId: PropTypes.string,
-  fromPath: PropTypes.string.isRequired,
-  toPath: PropTypes.string.isRequired,
-  fromRoom: PropTypes.string.isRequired,
-  toRoom: PropTypes.string.isRequired,
-  cableCapacity: PropTypes.string.isRequired,
-  cableLength: PropTypes.string.isRequired,
-  brahchNumber: PropTypes.string.isRequired,
-  tubeColor: PropTypes.string.isRequired,
-  freeBranch: PropTypes.string.isRequired,
-  fiberJunctionNumber: PropTypes.string.isRequired,
+    input: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    meta: PropTypes.object.isRequired,
 };
-// {
-//     input: PropTypes.object.isRequired,
-//     type: PropTypes.string.isRequired,
-//     name: PropTypes.string,
-//     label: PropTypes.string.isRequired,
-//     placeholder: PropTypes.string,
-//     meta: PropTypes.object.isRequired,
-// };
 
 export default FieldInput;
