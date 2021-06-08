@@ -7,6 +7,22 @@ import filterFactory from "react-bootstrap-table2-filter";
 import { PopupboxManager, PopupboxContainer } from "react-popupbox";
 import NotificationAlert from "react-notification-alert";
 
+const popupboxConfig = {
+  titleBar: {
+    enable: true,
+    text: "Create New Record",
+  },
+  fadeIn: true,
+  fadeInSpeed: 500,
+  style:{
+    outerHeight:"60%",
+     maxHeight: "70%",
+    height:"60%",
+    width:"70%"
+    //,overflowY: "scroll",
+  }
+};
+
 const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeader}) => {
   let options = {};
   const notificationAlert = useRef("");
@@ -30,15 +46,8 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
   };
 
   const NewBtn = (props) => {
-    const popupboxConfig = {
-      titleBar: {
-        enable: true,
-        text: "Popupbox Demo",
-      },
-      fadeIn: true,
-      fadeInSpeed: 500,
-    };
-    const content = ADDEDITFORM();
+   
+    const content = ADDEDITFORM({ heading:"Create New Record" , intialValues : currentRow});
     const handleClick = () => {
       PopupboxManager.open({ content });
     };
@@ -103,26 +112,28 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
   };
 
   const cardList = (obj) => {
+    const mystyle = {
+      maxHeight: "90%",
+      // height:"600px",
+      // width:"600px",
+      overflowY: "scroll",
+  
+    };
     const mappedList = [];
     Object.keys(obj).map((e, idx) => {
       const cCard = card(idx, e, obj[e]);
       mappedList.push(cCard);
     });
     return (
+      <div style={mystyle}>
       <div className="accordion" id="accordionExample">
         {mappedList}
+      </div>
       </div>
     );
   };
   const ViewBtn = (props) => {
-    const popupboxConfig = {
-      titleBar: {
-        enable: true,
-        text: "Popupbox Demo",
-      },
-      fadeIn: true,
-      fadeInSpeed: 500,
-    };
+  
 
     const content = cardList(currentRow);
     console.log(content);
@@ -157,18 +168,23 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
     );
   };
 
+  
   const EditBtn = (props) => {
+   
+    const content = ADDEDITFORM({ heading:"Edit Selected Record" , intialValues : currentRow});
     const handleClick = () => {
-      props.onExport();
+      PopupboxManager.open({ content });
     };
     return (
       <div>
         <button className="alert alert-primary" onClick={handleClick}>
-          Edit
+        Edit
         </button>
+        <PopupboxContainer {...popupboxConfig} />
       </div>
     );
   };
+
   const MyExportCSV = (props) => {
     const handleClick = () => {
       props.onExport();

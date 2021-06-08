@@ -7,6 +7,7 @@ const FieldInput = ({
   name,
   label,
   placeholder,
+  value,
   meta: { touched, error, warning },
 }) => {
   return (
@@ -18,6 +19,7 @@ const FieldInput = ({
           {...input}
           type={type}
           name={name}
+          value={value}
           className="form-control"
           placeholder={placeholder}
         />
