@@ -2,58 +2,64 @@ import AddOrEdit from "./../common/AddOrEdit";
 import PropTypes from "prop-types";
 import { reduxForm } from "redux-form";
 
-const inputFields = [
-  {
-    type: "select",
-    name: "featureName",
-    lable: "Feature Name",
-    options: [
-      { id: "1", text: "PN" },
-      { id: "2", text: "DESC" },
-      { id: "3", text: "TAX_PATH" },
-    ],
-    placeholder: "Feature Name",
-  },
-  {
-    type: "text",
-    name: "vendorCode",
-    lable: "Vendor Code",
-    placeholder: "Vendor Code",
-  },
-
-  {
-    type: "text",
-    name: "type",
-    lable: "Type",
-    placeholder: "Type",
-  },
-  {
-    type: "text",
-    name: "key",
-    lable: "Key",
-    placeholder: "Key",
-  },
-  {
-    type: "text",
-    name: "value",
-    lable: "Value",
-    placeholder: "Value",
-  },
-  {
-    type: "text",
-    name: "storeDate",
-    lable: "Store Date",
-    placeholder: "Store Date",
-  },
-  {
-    type: "text",
-    name: "userType",
-    lable: "User Type",
-    placeholder: "User Type",
-  },
-];
-
-export const HTMLHandlingFeaturesAddOrEdit = ({ heading, intialValues }) => {
+export const HTMLHandlingFeaturesAddOrEdit = ({ screenId , heading, intialValues }) => {
+  const inputFields = [
+    {
+      type: "text",
+      name: "id",
+      lable: "ID",
+      placeholder: "ID",
+    },
+    {
+      type: "select",
+      name: "featureName",
+      lable: "Feature Name",
+      options: [
+        { id: "1", text: "PN" },
+        { id: "2", text: "DESC" },
+        { id: "3", text: "TAX_PATH" },
+      ],
+      placeholder: "Feature Name",
+      // defaultOption: "Please Select an Option",
+    },
+    {
+      type: "text",
+      name: "vendorCode",
+      lable: "Vendor Code",
+      placeholder: "Vendor Code",
+    },
+  
+    {
+      type: "text",
+      name: "type",
+      lable: "Type",
+      placeholder: "Type",
+    },
+    {
+      type: "text",
+      name: "key",
+      lable: "Key",
+      placeholder: "Key",
+    },
+    {
+      type: "text",
+      name: "value",
+      lable: "Value",
+      placeholder: "Value",
+    },
+    {
+      type: "text",
+      name: "storeDate",
+      lable: "Store Date",
+      placeholder: "Store Date",
+    },
+    {
+      type: "text",
+      name: "userType",
+      lable: "User Type",
+      placeholder: "User Type",
+    },
+  ]
   if (intialValues)
     inputFields.map((element) => {
       Object.entries(intialValues).forEach(([key, value]) => {
@@ -66,7 +72,9 @@ export const HTMLHandlingFeaturesAddOrEdit = ({ heading, intialValues }) => {
 
   const handleSave = (values) => {};
   const handleCancel = (values) => {};
-  const handleSubmit = (values) => {};
+  const handleSubmit = (values) => {
+    console.log(values)
+  };
   const reset = (values) => {};
   return (
     <AddOrEdit
@@ -77,6 +85,7 @@ export const HTMLHandlingFeaturesAddOrEdit = ({ heading, intialValues }) => {
       handleSave={handleSave}
       handleCancel={handleCancel}
       intialValues={intialValues}
+      id={screenId}
     />
   );
 };

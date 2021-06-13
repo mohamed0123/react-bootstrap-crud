@@ -19,7 +19,7 @@ const FieldInput = ({
           {...input}
           type={type}
           name={name}
-          value={value}
+          defaultValue={value}
           className="form-control"
           placeholder={placeholder}
         />

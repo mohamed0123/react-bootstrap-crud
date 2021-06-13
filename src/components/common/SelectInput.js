@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const SelectInput = ({input, name, label, defaultOption, options, meta: {touched, error, warning}}) => {
+const SelectInput = ({input,value , name, label, defaultOption, options, meta: {touched, error, warning}}) => {
 
     return(
         <div className="form-group">
@@ -11,6 +11,8 @@ const SelectInput = ({input, name, label, defaultOption, options, meta: {touched
                     {...input}
                     name={name}
                     className="form-control"
+                    value={value}
+                    
                 >
                     <option>{defaultOption}</option>
                     {

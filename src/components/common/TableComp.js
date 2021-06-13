@@ -7,23 +7,13 @@ import filterFactory from "react-bootstrap-table2-filter";
 import { PopupboxManager, PopupboxContainer } from "react-popupbox";
 import NotificationAlert from "react-notification-alert";
 
-const popupboxConfig = {
-  titleBar: {
-    enable: true,
-    text: "Create New Record",
-  },
-  fadeIn: true,
-  fadeInSpeed: 500,
-  style:{
-    outerHeight:"60%",
-     maxHeight: "70%",
-    height:"60%",
-    width:"70%"
-    //,overflowY: "scroll",
-  }
-};
-
-const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeader}) => {
+const TableComp = ({
+  products,
+  columns,
+  defaultSorted,
+  ADDEDITFORM,
+  compHeader,
+}) => {
   let options = {};
   const notificationAlert = useRef("");
 
@@ -46,11 +36,26 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
   };
 
   const NewBtn = (props) => {
-   
-    const content = ADDEDITFORM({ heading:"Create New Record" , intialValues : currentRow});
+    const popupboxConfig = {
+      titleBar: {
+        enable: false,
+        // text: "Create New Record",
+      },
+      fadeIn: true,
+      fadeInSpeed: 500,
+      style: {
+        outerHeight: "60%",
+        maxHeight: "70%",
+        height: "60%",
+        width: "70%",
+        //,overflowY: "scroll",
+      },
+    };
+    const content = ADDEDITFORM({ id: "new", heading: "Create New Record", intialValues: {} });
     const handleClick = () => {
       PopupboxManager.open({ content });
     };
+    // popupboxConfig.titleBar.text = "Create New Record";
     return (
       <div>
         <button className="alert alert-primary" onClick={handleClick}>
@@ -117,7 +122,6 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
       // height:"600px",
       // width:"600px",
       overflowY: "scroll",
-  
     };
     const mappedList = [];
     Object.keys(obj).map((e, idx) => {
@@ -126,15 +130,29 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
     });
     return (
       <div style={mystyle}>
-      <div className="accordion" id="accordionExample">
-        {mappedList}
-      </div>
+        <div className="accordion" id="accordionExample">
+          {mappedList}
+        </div>
       </div>
     );
   };
   const ViewBtn = (props) => {
-  
-
+    const popupboxConfig = {
+      titleBar: {
+        enable: true,
+        // text: "View Record",
+      },
+      fadeIn: true,
+      fadeInSpeed: 500,
+      style: {
+        outerHeight: "60%",
+        maxHeight: "70%",
+        height: "60%",
+        width: "70%",
+        //,overflowY: "scroll",
+      },
+    };
+    // popupboxConfig.titleBar.text = "View Record";
     const content = cardList(currentRow);
     console.log(content);
     const openPopupbox = () => {
@@ -154,6 +172,7 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
           debugger;
           notificationAlert.current.notificationAlert(options);
         }
+        return;
       } else {
         PopupboxManager.open({ content });
       }
@@ -168,17 +187,54 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
     );
   };
 
-  
   const EditBtn = (props) => {
-   
-    const content = ADDEDITFORM({ heading:"Edit Selected Record" , intialValues : currentRow});
+    const popupboxConfig = {
+      titleBar: {
+        enable: true,
+        // text: "Edit Record",
+      },
+      fadeIn: true,
+      fadeInSpeed: 500,
+      style: {
+        outerHeight: "60%",
+        maxHeight: "70%",
+        height: "60%",
+        width: "70%",
+        //,overflowY: "scroll",
+      },
+    };
+    const content = ADDEDITFORM({
+      id: "edit",
+      heading: "Edit Record",
+      intialValues: currentRow,
+    });
+    // popupboxConfig.titleBar.text = "Edit Selected Record";
     const handleClick = () => {
-      PopupboxManager.open({ content });
+      if (!currentRow.id) {
+        options = {
+          place: "tl",
+          message: (
+            <div>
+              <div>Please select an item</div>
+            </div>
+          ),
+          type: "danger",
+          icon: "now-ui-icons ui-1_bell-53",
+          autoDismiss: 7,
+        };
+        if (notificationAlert.current) {
+          debugger;
+          notificationAlert.current.notificationAlert(options);
+        }
+        return;
+      } else {
+        PopupboxManager.open({ content });
+      }
     };
     return (
       <div>
         <button className="alert alert-primary" onClick={handleClick}>
-        Edit
+          Edit
         </button>
         <PopupboxContainer {...popupboxConfig} />
       </div>
@@ -219,7 +275,6 @@ const TableComp = ({products , columns , defaultSorted , ADDEDITFORM , compHeade
 
   return (
     <div>
-      
       <div className="App">
         <h5>{compHeader}</h5>
 

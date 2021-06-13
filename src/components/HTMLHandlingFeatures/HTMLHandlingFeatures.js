@@ -1,7 +1,8 @@
 import React, { useState, useEffect , useReducer } from "react";
 import TableComp from "./../common/TableComp";
 import styles from "./HTMLHandlingFeatures.module.css";
-import HTMLHandlingFeaturesAddOrEdit from "./HTMLHandlingFeaturesAddOrEdit";
+import {HTMLHandlingFeaturesAddOrEdit} from "./HTMLHandlingFeaturesAddOrEdit";
+
 import { textFilter } from "react-bootstrap-table2-filter";
 
 const columns = [
@@ -87,7 +88,7 @@ const HTMLHandlingFeatures = (props) => {
         products={fetchedData}
         columns={columns}
         defaultSorted={defaultSorted}
-        ADDEDITFORM={ADDEDITFORM}
+        ADDEDITFORM={HTMLHandlingFeaturesAddOrEdit}
       ></TableComp>
     </div>
   );
