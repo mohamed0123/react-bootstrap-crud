@@ -1,11 +1,17 @@
+import React, { useState, useRef, useEffect, useReducer } from "react";
 import AddOrEdit from "./../common/AddOrEdit";
 import PropTypes from "prop-types";
 import { reduxForm } from "redux-form";
-
-export const HTMLHandlingFeaturesAddOrEdit = ({ screenId , heading, intialValues }) => {
+import NotificationAlert from "react-notification-alert";
+export const HTMLHandlingFeaturesAddOrEdit = ({
+  screenId,
+  heading,
+  intialValues,
+}) => {
+  const notificationAlert = useRef("");
   const inputFields = [
     {
-      type: "text",
+      type: "hidden",
       name: "id",
       lable: "ID",
       placeholder: "ID",
@@ -15,51 +21,48 @@ export const HTMLHandlingFeaturesAddOrEdit = ({ screenId , heading, intialValues
       name: "featureName",
       lable: "Feature Name",
       options: [
-        { id: "1", text: "PN" },
-        { id: "2", text: "DESC" },
-        { id: "3", text: "TAX_PATH" },
+        { id: "PN", text: "PN" },
+        { id: "DESC", text: "DESC" },
+        { id: "TAX_PATH", text: "TAX_PATH" },
       ],
       placeholder: "Feature Name",
-      // defaultOption: "Please Select an Option",
+      required: true,
     },
     {
       type: "text",
       name: "vendorCode",
       lable: "Vendor Code",
       placeholder: "Vendor Code",
+      required: true,
     },
-  
     {
-      type: "text",
-      name: "type",
+      type: "select",
+      name: "userType",
       lable: "Type",
+      options: [
+        { id: "REGEX", text: "REGEX" },
+        { id: "REPLACE", text: "REPLACE" },
+        { id: "REPLACE AFTER", text: "REPLACE AFTER" },
+        { id: "REPLACE BEFORE", text: "REPLACE BEFORE" },
+      ],
       placeholder: "Type",
+      required: true,
     },
     {
       type: "text",
-      name: "key",
+      name: "userKey",
       lable: "Key",
       placeholder: "Key",
+      required: true,
     },
     {
       type: "text",
-      name: "value",
+      name: "userValue",
       lable: "Value",
       placeholder: "Value",
+      required: false,
     },
-    {
-      type: "text",
-      name: "storeDate",
-      lable: "Store Date",
-      placeholder: "Store Date",
-    },
-    {
-      type: "text",
-      name: "userType",
-      lable: "User Type",
-      placeholder: "User Type",
-    },
-  ]
+  ];
   if (intialValues)
     inputFields.map((element) => {
       Object.entries(intialValues).forEach(([key, value]) => {
@@ -71,22 +74,94 @@ export const HTMLHandlingFeaturesAddOrEdit = ({ screenId , heading, intialValues
     });
 
   const handleSave = (values) => {};
-  const handleCancel = (values) => {};
+  const handleCancel = (values) => {
+    console.log(values);
+  };
+
+  const objFormTojson = (values) => {
+    const jsonRes = {};
+    for (let i = 0; i < values.target.length; i++) {
+      const currenetElement = values.target[i];
+      if (currenetElement.name)
+        jsonRes[currenetElement.name] = currenetElement.value;
+    }
+    return jsonRes;
+  };
+
   const handleSubmit = (values) => {
-    console.log(values)
+    if(!values)
+      return
+    const obj = objFormTojson(values);
+    console.log(obj);
+
+    fetch("http://localhost:8002/HtmlFeaturesHandlingApis/insert", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(obj),
+    })
+      .then((res) => {
+        debugger;
+      return  res.json();
+      })
+      .then((json) => {
+        debugger;
+        console.log(json);
+        const options = {
+          place: "tl",
+          message: (
+            <div>
+              <div>{json.status}</div>
+              <div>{json.errorMessage}</div>
+            </div>
+          ),
+          type: "danger",
+          icon: "now-ui-icons ui-1_bell-53",
+          autoDismiss: 7,
+        };
+
+        if (notificationAlert.current) {
+          debugger;
+          notificationAlert.current.notificationAlert(options);
+        }
+        // forceUpdate();
+      })
+      .catch((err) => {
+        debugger;
+        console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuu", err);
+        const options = {
+          place: "tl",
+          message: (
+            <div>
+              <div>Error Loading Data</div>
+              <div>{err}</div>
+            </div>
+          ),
+          type: "danger",
+          icon: "now-ui-icons ui-1_bell-53",
+          autoDismiss: 7,
+        };
+
+        if (notificationAlert.current) {
+          debugger;
+          notificationAlert.current.notificationAlert(options);
+        }
+      });
   };
   const reset = (values) => {};
   return (
-    <AddOrEdit
-      handleSubmit={handleSubmit}
-      heading={heading}
-      inputFields={inputFields}
-      reset={reset}
-      handleSave={handleSave}
-      handleCancel={handleCancel}
-      intialValues={intialValues}
-      id={screenId}
-    />
+      <AddOrEdit
+        handleSubmit={handleSubmit}
+        heading={heading}
+        inputFields={inputFields}
+        reset={reset}
+        handleSave={handleSave}
+        handleCancel={handleCancel}
+        intialValues={intialValues}
+        id={screenId}
+      />
   );
 };
 
@@ -95,8 +170,6 @@ HTMLHandlingFeaturesAddOrEdit.propTypes = {
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  test: PropTypes.string.isRequired,
-  test2: PropTypes.string.isRequired,
   testselect2: PropTypes.array.isRequired,
   handleSave: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,

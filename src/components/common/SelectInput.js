@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const SelectInput = ({input,value , name, label, defaultOption, options, meta: {touched, error, warning}}) => {
+const SelectInput = ({input,value,key ,required, name, label, defaultOption, options, meta: {touched, error, warning}}) => {
 
     return(
         <div className="form-group">
@@ -10,11 +10,12 @@ const SelectInput = ({input,value , name, label, defaultOption, options, meta: {
                 <select
                     {...input}
                     name={name}
+                    key={key}
                     className="form-control"
-                    value={value}
-                    
+                    defaultValue={value}
+                    required ={required}
                 >
-                    <option>{defaultOption}</option>
+                    {/* <option>{defaultOption}</option> */}
                     {
                         options.map(option => {
                             return <option key={option.value} value={option.value}>{option.text}</option>;
@@ -34,7 +35,8 @@ const SelectInput = ({input,value , name, label, defaultOption, options, meta: {
 SelectInput.propTypes = {
     input: PropTypes.object.isRequired,
     name: PropTypes.string,    
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    key:PropTypes.string,
     defaultOption: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.object),
     meta: PropTypes.object.isRequired

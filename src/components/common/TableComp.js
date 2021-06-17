@@ -13,6 +13,7 @@ const TableComp = ({
   defaultSorted,
   ADDEDITFORM,
   compHeader,
+  handleDelete
 }) => {
   let options = {};
   const notificationAlert = useRef("");
@@ -72,7 +73,7 @@ const TableComp = ({
     };
     return (
       <div>
-        <button className="alert alert-danger" onClick={handleClick}>
+        <button className="alert alert-danger" onClick={handleDelete(currentRow)}>
           Delete
         </button>
       </div>

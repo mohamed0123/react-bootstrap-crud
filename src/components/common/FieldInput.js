@@ -8,6 +8,7 @@ const FieldInput = ({
   label,
   placeholder,
   value,
+  required,
   meta: { touched, error, warning },
 }) => {
   return (
@@ -22,6 +23,7 @@ const FieldInput = ({
           defaultValue={value}
           className="form-control"
           placeholder={placeholder}
+          required ={required}
         />
 
         {touched &&
@@ -36,7 +38,7 @@ FieldInput.propTypes = {
     input: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string,
-    label: PropTypes.string.isRequired,
+    // label: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     meta: PropTypes.object.isRequired,
 };

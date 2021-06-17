@@ -16,6 +16,7 @@ const AddOrEdit = ({
   
   const meta = { touched: false, error: {}, warning: {} };
   const input = {};
+  let index = 0;
   const mystyle = {
     maxHeight: "90%",
     // height:"600px",
@@ -27,13 +28,14 @@ const AddOrEdit = ({
     <div style={mystyle}>
       <form id={id} onSubmit={handleSubmit}>
         <h1>{heading}</h1>
-        {inputFields.map(function (inputField, i) {
+        {inputFields.map(function (inputField) {
           if (!inputField.value) {
             inputField.value = "";
+            index = id + "_" + Date.now()
           }
 
-          if (inputField.type === "text") {
-
+          if (inputField.type === "text" || inputField.type === "hidden") {
+            // console.log(inputField.type)
           //   return ( <div className="form-group">
           //   {/* <label htmlFor={inputField.name}>{label}</label> */}
       
@@ -56,12 +58,13 @@ const AddOrEdit = ({
               <FieldInput
                 input={input}
                 meta={meta}
-                key={i}
+                key={index}
                 value={inputField.value}
-                type="text"
+                type={inputField.type}
                 name={inputField.name}
                 label={inputField.label}
                 placeholder={inputField.placeholder}
+                required ={inputField.required}
                 //   component={FieldInput}
               />
             );
@@ -71,11 +74,12 @@ const AddOrEdit = ({
               <SelectInput
                 input={input}
                 meta={meta}
-                key={i}
+                key={index}
                 value={inputField.value}
                 name={inputField.name}
                 label={inputField.label}
                 options={inputField.options}
+                required ={inputField.required}
                 defaultOption="Please Select an Option"
                 //   component={SelectInput}
               />
@@ -103,13 +107,13 @@ const AddOrEdit = ({
             </button>
           )}
 
-          <button
+          {/* <button
             type="button"
             className="btn btn-default btn-space"
             onClick={handleCancel}
           >
             Cancel
-          </button>
+          </button> */}
         </div>
       </form>
     </div>
